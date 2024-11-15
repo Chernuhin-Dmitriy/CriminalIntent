@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="16dp"
+    android:orientation="vertical">
+
+    <TextView
+        style="?android:listSeparatorTextViewStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/criminal_title_lable"
+        android:ems="20"/>
+
+    <EditText
+        style="?android:listSeparatorTextViewStyle"
+        android:id="@+id/crimeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/criminal_title_hint"
+        android:ems="20"/>
+
+    <TextView
+        style="?android:listSeparatorTextViewStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/criminal_details_lable"
+        android:ems="20"/>
+
+    <Button
+        android:id="@+id/date_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        tools:text="Wed Nov 14 11:56 EST 2018"/>
+
+    <CheckBox
+        android:id="@+id/solved_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/crime_solved_lable"/>
+
+
+
+
+
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>
