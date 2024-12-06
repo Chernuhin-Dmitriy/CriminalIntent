@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -45,6 +46,11 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
+    implementation(libs.androidx.lifecycle.extensions)
+    implementation(libs.androidx.room.runtime)
+
+//    implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
+//    implementation("androidx.room:room-runtime:2.6.1")
+ //   ksp(libs.androidx.room.compiler.v250)
     implementation(libs.androidx.recyclerview)
 }

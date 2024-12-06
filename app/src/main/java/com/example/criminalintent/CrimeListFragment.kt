@@ -1,5 +1,6 @@
 package com.example.criminalintent
 
+import android.icu.util.Calendar
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,8 +13,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
-import androidx.recyclerview.widget.RecyclerView.VISIBLE
+import java.text.SimpleDateFormat
+import java.util.Date
 
 private const val TAG = "CrimeListFragment"
 
@@ -70,13 +71,57 @@ class CrimeListFragment : Fragment() {
         fun bind(crime: Crime) {
             this.crime = crime
             titleTextView.text = this.crime.title
-            dateTextView.text = this.crime.date.toString().substringBefore('G')
+            dateTextView.text = liteDateFormatter(this.crime.date)        //dateFormatter(this.crime.date)        //toString().substringBefore('G') //Monday, Jul 22, 2019
 
             solvedImageView.visibility = if (crime.isSolved)
                     View.VISIBLE
                 else
                     View.GONE
         }
+    }
+
+    fun liteDateFormatter(today: Date): String{
+        val dateFormat = SimpleDateFormat("EEEE, MMM dd, yyyy")
+
+        val formattedDate = dateFormat.format(today)
+        return formattedDate
+    }
+
+    fun dateFormatter(date: Date): String{
+        val calendar: Calendar = Calendar.getInstance()
+        val dayOfWeek = when(calendar.get(Calendar.DAY_OF_WEEK) - 1){
+            1 -> "Monday"
+            2 -> "Thuesday"
+            3 -> "Wednesday"
+            4 -> "Thurthday"
+            5 -> "Friday"
+            6 -> "Saturday"
+            7 -> "Sunday"
+            else -> "Something went wrong"
+        }
+
+        val mount = when(calendar.get(Calendar.MONTH) + 1){
+            1 -> "Jun"
+            2 -> "Feb"
+            3 -> "Mar"
+            4 -> "Apr"
+            5 -> "May"
+            6 -> "June"
+            7 -> "Jul"
+            8 -> "Aug"
+            9 -> "Sep"
+            10 -> "Oct"
+            11 -> "Mov"
+            12 -> "Dec"
+            else -> "error"
+        }
+
+        val result: String = dayOfWeek + ", " +
+                    mount + " "
+                    calendar.get(Calendar.DATE).toString() + ", " +
+                    calendar.get(Calendar.YEAR).toString() + ""
+
+        return result
     }
 
 
