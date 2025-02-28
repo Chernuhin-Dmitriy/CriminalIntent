@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.kotlin.ksp)
-
+    alias(libs.plugins.kotlin.kapt)
 }
 
 android {
@@ -35,6 +35,10 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    packaging {
+        resources.excludes.add("META-INF/versions/9/OSGI-INF/MANIFEST.MF")
+    }
 }
 
 dependencies {
@@ -52,7 +56,10 @@ dependencies {
     implementation(libs.androidx.recyclerview)
 
     implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
+//    ksp(libs.androidx.room.compiler)
+     annotationProcessor(libs.androidx.room.compiler) // Если используешь kapt
+
 //    implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
 //    implementation("androidx.room:room-runtime:2.6.1")
 //    ksp(libs.androidx.room.compiler.v250)

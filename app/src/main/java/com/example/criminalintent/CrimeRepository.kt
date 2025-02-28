@@ -1,8 +1,26 @@
 package com.example.criminalintent
 
 import android.content.Context
+import androidx.lifecycle.LiveData
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import com.android.identity.util.UUID
+import com.example.criminalintent.database.CrimeDatabase
 
-class CrimeRepository private constructor(context: Context) {
+private const val DATABASE_NAME = "crime-database"
+
+class CrimeRepository  constructor(context: Context) {
+
+    private val database: CrimeDatabase = Room.databaseBuilder(
+        context.applicationContext,
+        CrimeDatabase::class.java,
+        DATABASE_NAME,
+        ).build()
+
+    private val crimeDao = database.crimeDao()
+
+    fun getCrimes(): LiveData<List<Crime>> = crimeDao.getCrimes()
+    fun getCrime(id: java.util.UUID): LiveData<Crime?> = crimeDao.getCrime(id)
 
     companion object{
         private var INSTANCE: CrimeRepository? = null
@@ -11,10 +29,10 @@ class CrimeRepository private constructor(context: Context) {
             if(INSTANCE == null)
                 INSTANCE = CrimeRepository(context)
         }
-    }
 
-    fun get() : CrimeRepository {
-        return INSTANCE ?:
-        throw IllegalStateException("CrimeRepository must be initia")
+        fun get(): CrimeRepository {
+            return INSTANCE ?:
+            throw IllegalStateException("CrimeRepository must be initia")
+        }
     }
 }
