@@ -11,15 +11,20 @@ material = "1.12.0"
 activity = "1.9.2"
 constraintlayout = "2.1.4"
 recyclerview = "1.3.2"
-ksp = "2.1.0-1.0.29"
+#ksp = "2.1.0-1.0.29"
 identityJvm = "202411.1"
-
 room = "2.6.1"
+ksp = "1.9.0-1.0.13"
+livedata-ktx = "2.6.2"
 
 
 [libraries]
+lifecycle-livedata = { module = "androidx.lifecycle:lifecycle-livedata", version = "2.1.0"}
+
+
+#lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "livedata-ktx"}
+androidx-room-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
-androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -35,8 +40,9 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 identity-jvm = { group = "com.android.identity", name = "identity-jvm", version.ref = "identityJvm" }
 
 [plugins]
+devtoolsKsp = { id = "com.google.devtools.ksp", version.ref = "ksp"}
+
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+
 

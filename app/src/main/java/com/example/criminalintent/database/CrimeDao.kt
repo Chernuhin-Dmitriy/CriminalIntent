@@ -11,8 +11,9 @@ interface CrimeDao {
     @Query ("SELECT * FROM crime")
     fun getCrimes(): LiveData<List<Crime>>
 
-    @Query("SELECT * FROM crime where id =(:id)")
+    @Query("SELECT * FROM crime WHERE id = :id")
        fun getCrime(id: UUID): LiveData<Crime?>
 
-//    @Query("INSERT INTO crime (title, date, isSolved, requiresPolice) VALUES ("Произошло утром", Date.today, false, 0)")
+//    @Query("SELECT * FROM crime WHERE id = :crimeId")
+//    suspend fun getCrimeSync(crimeId: UUID): LiveData<Crime?>
 }

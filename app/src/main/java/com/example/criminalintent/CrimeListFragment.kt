@@ -1,6 +1,6 @@
 package com.example.criminalintent
 
-import android.icu.util.Calendar
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,22 +16,27 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.UUID
 
 private const val TAG = "CrimeListFragment"
 
 class CrimeListFragment : Fragment() {
 
+    interface Callbacks {
+        fun onCrimeSelected(crimeId: UUID)
+    }
+
+    private var callbacks: Callbacks? = null
     private lateinit var crimeRecycleView: RecyclerView
     private var adapter: CrimeAdapter? = CrimeAdapter(emptyList())
-
     private val crimeListViewModel: CrimeListViewModel by lazy {
         ViewModelProviders.of(this).get(CrimeListViewModel::class.java)
     }
 
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        Log.d(TAG, "Total crimes: ${crimeListViewModel.crimes.size}")
-//    }
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callbacks = context as Callbacks?
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,7 +58,7 @@ class CrimeListFragment : Fragment() {
         crimeListViewModel.crimeListLD.observe(
             viewLifecycleOwner,
             Observer { crimes ->
-                crimes?.let{
+                crimes?.let {
                     Log.i(TAG, "Got crimes ${crimes.size}")
                     updateUI(crimes)
                 }
@@ -61,6 +66,10 @@ class CrimeListFragment : Fragment() {
         )
     }
 
+    override fun onDetach() {
+        super.onDetach()
+        callbacks = null
+    }
 
     //Конструктор viewHolder`a
     private inner class CrimeHolder(view: View)
@@ -76,15 +85,16 @@ class CrimeListFragment : Fragment() {
         }
 
         override fun onClick(v: View) {
-            Toast.makeText(itemView.context, crime.title, Toast.LENGTH_SHORT).show()
+            Toast.makeText(itemView.context, crime.id, Toast.LENGTH_SHORT).show()
+            callbacks?.onCrimeSelected(UUID.fromString(crime.id))
         }
 
         fun bind(crime: Crime) {
             this.crime = crime
             titleTextView.text = this.crime.title
-            dateTextView.text = liteDateFormatter(this.crime.date)        //dateFormatter(this.crime.date)        //toString().substringBefore('G') //Monday, Jul 22, 2019
+            dateTextView.text =  "123"//liteDateFormatter(this.crime.date)        //dateFormatter(this.crime.date)        //toString().substringBefore('G') //Monday, Jul 22, 2019
 
-            solvedImageView.visibility = if (crime.isSolved)
+            solvedImageView.visibility = if (crime.isSolved == 0)
                     View.VISIBLE
                 else
                     View.GONE
@@ -107,9 +117,7 @@ class CrimeListFragment : Fragment() {
                 1 -> R.layout.list_item_heavy_crime
                 else -> R.layout.list_item_crime
             }
-
             val view = layoutInflater.inflate(layoutType, parent, false)
-
             return CrimeHolder(view)
         }
 
@@ -122,7 +130,7 @@ class CrimeListFragment : Fragment() {
 
         //Логика получения ViewType для представления
         override fun getItemViewType(position: Int): Int {
-            return crimes[position].requiresPolice
+            return crimes[position].date //requires
         }
     }
 

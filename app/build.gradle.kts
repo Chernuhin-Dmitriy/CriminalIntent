@@ -1,9 +1,12 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.kotlin.ksp)
-    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.devtoolsKsp)
+
+//    alias(libs.plugins.kotlin.ksp)
+//    alias(libs.plugins.kotlin.kapt)
 }
+
 
 android {
     namespace = "com.example.criminalintent"
@@ -42,7 +45,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -54,13 +56,11 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.androidx.lifecycle.extensions)
     implementation(libs.androidx.recyclerview)
-
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
-//    ksp(libs.androidx.room.compiler)
-     annotationProcessor(libs.androidx.room.compiler) // Если используешь kapt
+    annotationProcessor(libs.androidx.room.room.compiler)
+    ksp(libs.androidx.room.room.compiler)
+//    implementation(libs.lifecycle.livedata.ktx)
 
-//    implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
-//    implementation("androidx.room:room-runtime:2.6.1")
-//    ksp(libs.androidx.room.compiler.v250)
+    implementation(libs.lifecycle.livedata)
 }
