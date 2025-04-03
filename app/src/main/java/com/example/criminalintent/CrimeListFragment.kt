@@ -23,7 +23,7 @@ private const val TAG = "CrimeListFragment"
 class CrimeListFragment : Fragment() {
 
     interface Callbacks {
-        fun onCrimeSelected(crimeId: UUID)
+        fun onCrimeSelected(crimeId: String)
     }
 
     private var callbacks: Callbacks? = null
@@ -85,8 +85,9 @@ class CrimeListFragment : Fragment() {
         }
 
         override fun onClick(v: View) {
-            Toast.makeText(itemView.context, crime.id, Toast.LENGTH_SHORT).show()
-            callbacks?.onCrimeSelected(UUID.fromString(crime.id))
+//            Toast.makeText(itemView.context, crime.id, Toast.LENGTH_SHORT).show()
+//            callbacks?.onCrimeSelected(UUID.fromString(crime.id))
+            callbacks?.onCrimeSelected(crime.id)
         }
 
         fun bind(crime: Crime) {

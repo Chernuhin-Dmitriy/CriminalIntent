@@ -20,21 +20,15 @@ class CrimeRepository constructor(context: Context) {
         CrimeDatabase::class.java,
         DATABASE_NAME,
         )
-//        .addMigrations(MIGRATION_1_2)
-//        .fallbackToDestructiveMigration()
         .build()
 
 
     private val crimeDao = database.crimeDao()
 
     fun getCrimes(): LiveData<List<Crime>> = crimeDao.getCrimes()
-    fun getCrime(id: java.util.UUID): LiveData<Crime?> = crimeDao.getCrime(id)
+//    fun getCrime(id: java.util.UUID): LiveData<Crime?> = crimeDao.getCrime(id)
+    fun getCrime(id: String): LiveData<Crime?> = crimeDao.getCrime(id)
 
-//    fun getCrimeSync(crimeId: java.util.UUID): LiveData<Crime?> {
-//        return runBlocking {
-//            crimeDao.getCrimeSync(crimeId)
-//        }
-//    }
 
     companion object{
         private var INSTANCE: CrimeRepository? = null

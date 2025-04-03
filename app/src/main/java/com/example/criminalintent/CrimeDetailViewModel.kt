@@ -12,22 +12,13 @@ private const val TAG = "CrimeDetail"
 
 class CrimeDetailViewModel: ViewModel() {
     private val crimeRepository = CrimeRepository.get()
-    private val crimeIdLD = MutableLiveData<UUID>()
+    private val crimeIdLD = MutableLiveData<String>()
 
     var crimeLD: LiveData<Crime?> = crimeIdLD.switchMap { crimeId ->
-
-                val result = crimeRepository.getCrime(crimeId)
-//        val crime = crimeRepository.getCrimeSync(crimeId)
-
-        Log.d(TAG, "Crime fetched from DB: $result")
-        result
+        crimeRepository.getCrime(crimeId)
     }
 
-//    init {
-//        Log.d(TAG, "CrimeDetailViewModel initialized")
-//    }
-
-    fun loadCrime(crimeId: UUID){
+    fun loadCrime(crimeId: String){
         Log.d(TAG, "loadCrime called with ID: $crimeId")
         crimeIdLD.value = crimeId
     }
